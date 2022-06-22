@@ -1,5 +1,4 @@
 # Create SQL database models and relationships.
-
 from sqlalchemy.orm import relationship
 from sqlalchemy import ForeignKey, Boolean, Column, Integer, String, Time
 from .database import Base

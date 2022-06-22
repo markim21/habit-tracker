@@ -6,7 +6,6 @@
 
 from typing import Optional, List
 from datetime import time
-
 from pydantic import BaseModel
 
 class TaskBase(BaseModel):
@@ -21,7 +20,6 @@ class TaskCreate(TaskBase):
 class Task(TaskBase):
     id: int
     list_id: int
-
     class Config: 
         orm_mode = True
 
@@ -41,7 +39,6 @@ class ListCreate(ListBase):
 class List(ListBase):
     id: int
     tasks: List[Task] = []
-
     class Config: 
         # tell pydantic model to read data whether its a dict or ORM model. 
         # ie, if data["column"] isn't right, try data.column.
