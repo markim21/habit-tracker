@@ -5,3 +5,7 @@ venv/
 ENV/
 env.bak/
 venv.bak/
+habit-tracker
+habit-tracker.pub
+habits.db
+__pycache__

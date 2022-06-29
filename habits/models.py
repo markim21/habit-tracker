@@ -1,16 +1,15 @@
 # Create SQL database models and relationships.
-
 from sqlalchemy.orm import relationship
 from sqlalchemy import ForeignKey, Boolean, Column, Integer, String, Time
-from .database import Base
+from database import Base
 
 class List(Base):
     __tablename__ = "list"
     id = Column(Integer, primary_key = True)
     title = Column(String, nullable=False)
     description = Column(String)
-    reset_time = Column(Time)
-    notif_time = Column(Time)
+    reset_time = Column(String)
+    notif_time = Column(String)
 
     tasks = relationship("Task", back_populates="list")
 
