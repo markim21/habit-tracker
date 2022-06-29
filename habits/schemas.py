@@ -15,7 +15,7 @@ class TaskBase(BaseModel):
     completed: bool
 
 class TaskCreate(TaskBase):
-    pass
+    title: str
 
 class Task(TaskBase):
     id: int
@@ -27,13 +27,13 @@ class Task(TaskBase):
 # These base models make sure all list-related models 
 # have the same common attributes when creating or reading data.
 class ListBase(BaseModel):
-    title: str
+    title: Optional[str]
     description: Optional[str]
-    reset_time: time
-    notif_time: time
+    reset_time: Optional[str]
+    notif_time: Optional[str]
 
 class ListCreate(ListBase):
-    pass
+    title: str
 
 # These Models are what's used when reading data/returning from the API
 class List(ListBase):

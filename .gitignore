@@ -8,3 +8,4 @@ venv.bak/
 habit-tracker
 habit-tracker.pub
 habits.db
+__pycache__

@@ -1,6 +1,7 @@
-from . import models, schemas
-from .controllers import list_controller, task_controller
-from .database import SessionLocal, engine 
+#from . import models, schemas
+import models, schemas
+import list_controller, task_controller
+from database import SessionLocal, engine 
 from fastapi import FastAPI, Depends, HTTPException
 from sqlalchemy.orm import Session
 from typing import List
@@ -18,14 +19,16 @@ def get_db():
     finally: db.close()
 
 """Create new list."""
-@app.post("/lists/", response_model = schemas.List)
+@app.post("/lists", response_model = schemas.List)
 def create_list(list: schemas.ListCreate, db: Session = Depends(get_db)):
     return list_controller.create_list(db = db, list = list)
 
+
 """Get all lists."""
-@app.get("/lists/", response_model = List[schemas.List])
+@app.get("/lists", response_model = List[schemas.List])
 def read_list(db: Session = Depends(get_db)):
-    return list_controller.get_all_lists(db)
+    return list_controller.get_all_lists(db=db)
+  
 
 """Update list given list_id."""
 @app.patch("/lists/{list_id}", response_model = schemas.List)
@@ -46,3 +49,11 @@ def delete_list(list_id: int, db: Session = Depends(get_db)):
 """Update task description, order in list, completion"""
 
 """Delete task from given list id."""
+
+@app.post("/lists/drop/")
+def drop_all_lists(db: Session = Depends(get_db)):
+    pass
+
+ 
+##if __name__ == "__main__":
+##    app.run(host="0.0.0.0", port=4500, debug=True)
