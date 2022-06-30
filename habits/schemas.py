@@ -9,17 +9,19 @@ from datetime import time
 from pydantic import BaseModel
 
 class TaskBase(BaseModel):
-    title: str
+    title: Optional[str]
+    list_id: Optional[int]
     description: Optional[str]
-    order_in_list: int
-    completed: bool
+    order_in_list: Optional[int]
+    completed: Optional[bool]
 
 class TaskCreate(TaskBase):
     title: str
+    list_id: int
 
 class Task(TaskBase):
     id: int
-    list_id: int
+    list_id: Optional[int]
     class Config: 
         orm_mode = True
 
