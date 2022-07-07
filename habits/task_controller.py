@@ -21,8 +21,11 @@ def add_task(task: schemas.TaskCreate, db: Session):
 
     list_json = jsonable_encoder(list)
     order = 0
-    #if 'tasks' in list_json.keys():
-     #   order = len(list_json['tasks'])
+    print(list_json)
+    print(list_json.keys())
+    #print(len(list_json['tasks']))
+    if 'tasks' in list_json.keys() and len(list_json['tasks']) == 0:
+        order = len(list_json['tasks'])
 
     new_task = models.Task(
         list_id = list_id,
