@@ -1,5 +1,5 @@
 # Create SQL database models and relationships.
-from sqlalchemy.orm import relationship
+from sqlalchemy.orm import relationship, backref
 from sqlalchemy import ForeignKey, Boolean, Column, Identity, Integer, String, Time
 from database import Base
 
@@ -11,7 +11,9 @@ class List(Base):
     reset_time = Column(String)
     notif_time = Column(String)
 
-    tasks = relationship("Task", cascade="all, delete")
+    tasks = relationship('Task', cascade='all, delete', backref='list')
+
+    #tasks = relationship("Task", backref="list", passive_deletes=True)
 
 class Task(Base):
     __tablename__ = "task"
@@ -23,3 +25,4 @@ class Task(Base):
     completed = Column(Boolean)
 
     #list = relationship("List", back_populates="tasks")
+
