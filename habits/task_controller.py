@@ -9,6 +9,7 @@ def get_list(db: Session, list_id: int):
     list = db.query(models.List).filter(models.List.id==list_id).first()
     if list is None:
         raise HTTPException(status_code=404, detail="List not found")
+
     return list
 
 
@@ -19,13 +20,11 @@ def add_task(task: schemas.TaskCreate, db: Session):
 
     list = get_list(db=db, list_id=list_id)
 
-    list_json = jsonable_encoder(list)
+    tasks = jsonable_encoder( list.tasks )
+
     order = 0
-    print(list_json)
-    print(list_json.keys())
-    #print(len(list_json['tasks']))
-    if 'tasks' in list_json.keys() and len(list_json['tasks']) == 0:
-        order = len(list_json['tasks'])
+    if len(tasks) > 0:
+        order = len(tasks)
 
     new_task = models.Task(
         list_id = list_id,
@@ -75,6 +74,10 @@ def delete_task(db: Session, id: int):
     task = db.query(models.Task).filter(models.Task.id == id).first()
     if task is None:
         raise HTTPException(status_code = 404, detail="Task not found.")
-    db.query(models.Task).filter(models.Task.id == id).delete()
+
+    task_json = jsonable_encoder(task)
+
+    db.delete(task)
     db.commit()
-    return task
+
+    return task_json 
