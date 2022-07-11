@@ -61,6 +61,8 @@ def delete_list(db: Session, list_id: int):
     if list is None:
         raise HTTPException(status_code = 404, detail="List not found.")
 
+    list_json = jsonable_encoder(list)
+
     db.delete(list)
     db.commit()
 
