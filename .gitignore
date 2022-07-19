@@ -9,3 +9,6 @@ habit-tracker
 habit-tracker.pub
 habits.db
 __pycache__
+/__pycache__
+__pycache__/
+/__pycache__/

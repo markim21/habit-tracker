@@ -59,6 +59,8 @@ def get_task(list_id: int, db: Session = Depends(get_db)):
 """Update task description, order in list, or completion"""
 @app.patch("/lists/tasks/{id}", response_model = schemas.Task)
 def update_task(new_data: schemas.Task, db: Session = Depends(get_db)):
+    if new_data.order_in_list is not None:
+        return task_controller.update_order(db=db, new_data=new_data)
     return task_controller.update_task(db=db, new_data=new_data)
 
 
